@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using Project_Management.Models;
+using System.IO;
 
 namespace Project_Management.Controllers
 {
@@ -18,6 +19,7 @@ namespace Project_Management.Controllers
         [HttpGet]
         public ActionResult Register()
         {
+
             return View();
         }
 
@@ -25,7 +27,15 @@ namespace Project_Management.Controllers
         public ActionResult Register(Users NewUser)
         {
             Users NewUser1 = new Users();
-            NewUser1.Register(NewUser);
+
+            string Filename = Path.GetFileNameWithoutExtension(NewUser.ImageUpload.FileName);
+            string extension = Path.GetExtension(NewUser.ImageUpload.FileName);
+            Filename = Filename + extension;
+
+             Filename = Path.Combine(Server.MapPath("~/UserProfileImage/"), Filename);
+            
+
+            NewUser1.Register(NewUser,Filename);
             return RedirectToAction("Index");
 
         }
