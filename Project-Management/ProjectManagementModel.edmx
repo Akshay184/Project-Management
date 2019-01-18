@@ -58,6 +58,7 @@
           <Property Name="UserBio" Type="nvarchar(max)" />
           <Property Name="UserCompany" Type="nvarchar(max)" />
           <Property Name="UserStatus" Type="bit" />
+          <Property Name="GUID" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tblWorkspace">
           <Key>
@@ -262,6 +263,7 @@
           <NavigationProperty Name="tblProjects" Relationship="Self.FK_PersonOrder" FromRole="tblUsers" ToRole="tblProjects" />
           <NavigationProperty Name="tblWorkspaceMembers" Relationship="Self.FK__tblWorksp__UserI__6477ECF3" FromRole="tblUsers" ToRole="tblWorkspaceMembers" />
           <NavigationProperty Name="tblWorkspaces" Relationship="Self.FK_PersonOrder1" FromRole="tblUsers" ToRole="tblWorkspace" />
+          <Property Name="GUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblWorkspace">
           <Key>
@@ -456,6 +458,7 @@
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="dbProjectManagementModel.tblUser">
               <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserDOB" ColumnName="UserDOB" />

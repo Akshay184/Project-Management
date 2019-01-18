@@ -34,6 +34,7 @@ namespace Project_Management
         public string UserBio { get; set; }
         public string UserCompany { get; set; }
         public Nullable<bool> UserStatus { get; set; }
+        public string GUID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProjectMember> tblProjectMembers { get; set; }
