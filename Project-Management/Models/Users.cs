@@ -78,7 +78,7 @@ namespace Project_Management.Models
 
 
 
-               NewUser.ImageUpload.SaveAs(Filename);
+                NewUser.ImageUpload.SaveAs(Filename);
                 string Filename1 = Path.GetFileNameWithoutExtension(NewUser.ImageUpload.FileName);
                 string extension = Path.GetExtension(NewUser.ImageUpload.FileName);
 

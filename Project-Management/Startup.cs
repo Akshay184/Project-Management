@@ -8,7 +8,8 @@ namespace Project_Management
     {
         public void Configuration(IAppBuilder app)
         {
+            app.MapSignalR();
             ConfigureAuth(app);
         }
-    }
+    } 
 }
