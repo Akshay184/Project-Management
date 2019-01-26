@@ -17,17 +17,17 @@ namespace Project_Management.Models
 {
     public class Users
     {
-        
+
 
         public int UserId { get; set; }
         [Required]
         public string Name { get; set; }
         [DataType(DataType.Date)]
-        [Required]
+       
         [Display(Name = "Enter DOB")]
 
 
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
         [Required(ErrorMessage = "Required")]
         public Gender UserGender { get; set; }
         [DisplayName("UploadImage")]
@@ -37,15 +37,17 @@ namespace Project_Management.Models
         public string Email { get; set; }
         [Required(ErrorMessage = "Required")]
         [DataType(DataType.Password)]
+        
+
         public string Password { get; set; }
         [Required(ErrorMessage = "Required")]
         public string Username { get; set; }
-        [Required(ErrorMessage = "Required")]
-        public string Bio { get; set; }
-        [Required(ErrorMessage = "Required")]
-        public string Company { get; set; }
 
-        public string  ActivationGuid { get; set; }
+        public string Company { get; set; }
+        public string Bio { get; set; }
+       
+
+        public string ActivationGuid { get; set; }
 
         public HttpPostedFileBase ImageUpload { get; set; }
 
@@ -60,7 +62,7 @@ namespace Project_Management.Models
             Others
         }
 
-        public void Register(Users NewUser,string Filename)
+        public void Register(Users NewUser, string Filename)
         {
             using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
             {
@@ -87,30 +89,22 @@ namespace Project_Management.Models
 
                 db.tblUsers.Add((CreateUser));
                 db.SaveChanges();
-                
 
-               
             }
-
-
-
         }
 
         public void ActivationEmail(Users NewUser, string part)
         {
             using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
             {
-                tblUser CreatedUser =  new tblUser();
-                //var employee = db.tblUsers.SingleOrDefault(m => m.UserEmail == NewUser.Email);
-
+                tblUser CreatedUser = new tblUser();
                 using (MailMessage mm = new MailMessage("projectmanagementcommunity@gmail.com", NewUser.Email))
                 {
-                  //  UrlHelper url = new UrlHelper();
 
                     mm.Subject = "Account Activation";
                     string body = "Hello " + NewUser.Username + ",";
                     body += "<br /><br />Please click the following link to activate your account";
-                    body += part;   //"<br /><a href = '" + string.Format("{0}://{1}/Home/Activation/{2}", Request.Url.Scheme, Request.Url.Authority, employee.GUID) + "'>Click here to activate your account.</a>";
+                    body += part;
                     body += "<br /><br />Thanks";
                     mm.Body = body;
                     mm.IsBodyHtml = true;
@@ -127,7 +121,23 @@ namespace Project_Management.Models
             }
         }
 
-      
+        public Users Profile(int id)
+        {
+            using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
+            {
+                
+               Users UserProfile = new Users();
+                var Profile = db.tblUsers.Where(m => m.UserId == id).SingleOrDefault();
+                UserProfile.Name = Profile.UserName;
+                UserProfile.DOB = Profile.UserDOB;
+                UserProfile.Email = Profile.UserEmail;
+                UserProfile.Username = Profile.UserUserName;
+                UserProfile.DOB = Profile.UserDOB;
+                UserProfile.Bio = Profile.UserBio;
+                UserProfile.Company = Profile.UserCompany;
+                return UserProfile;
+            }
+        }
 
 
     }

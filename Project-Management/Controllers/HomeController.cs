@@ -96,21 +96,10 @@ namespace Project_Management.Controllers
                     ViewBag.Message = "Login Successgful";
                 }
            // }
-            return RedirectToAction("Dashboard");
+            return RedirectToAction("Index","Dashboard");
         }
 
-        public ActionResult Dashboard()
-        {
-            if (Session["UserId"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
-           
-        }
+      
 
 
     }

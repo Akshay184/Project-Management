@@ -210,6 +210,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="ChatHub.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -308,7 +309,13 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\SignalR.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="UserProfileImage\akshay new.jpeg" />
+    <Content Include="UserProfileImage\background2.png" />
+    <Content Include="UserProfileImage\bgf %282%29.png" />
+    <Content Include="UserProfileImage\pad-clipart-cartoon-1 %281%29.png" />
+    <Content Include="UserProfileImage\waeter1234.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -347,12 +354,14 @@
     <Content Include="Views\Home\Activation.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
-    <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Dashboard\Message.cshtml" />
     <Content Include="Views\Dashboard\Profile.cshtml" />
+    <Content Include="Views\Dashboard\Edit.cshtml" />
+    <Content Include="Views\Dashboard\Logout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="UserProfileImage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
