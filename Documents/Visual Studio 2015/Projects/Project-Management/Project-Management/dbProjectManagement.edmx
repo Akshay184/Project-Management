@@ -1,0 +1,484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbProjectManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblProject">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar(max)" />
+          <Property Name="ProjectDescription" Type="nvarchar(max)" />
+          <Property Name="ProjectAdminId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblProjectMembers">
+          <Key>
+            <PropertyRef Name="ProjectMemberId" />
+          </Key>
+          <Property Name="UserId" Type="int" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="ProjectMemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="UserDOB" Type="date" />
+          <Property Name="UserGender" Type="nvarchar" MaxLength="10" />
+          <Property Name="UserProfileImage" Type="nvarchar(max)" />
+          <Property Name="UserEmail" Type="nvarchar(max)" />
+          <Property Name="UserPassword" Type="nvarchar(max)" />
+          <Property Name="UserBio" Type="nvarchar(max)" />
+          <Property Name="UserOrganisation" Type="nvarchar(max)" />
+          <Property Name="UserUserName" Type="nvarchar(max)" />
+          <Property Name="GUID" Type="nvarchar(max)" />
+          <Property Name="UserStatus" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblWorkspace">
+          <Key>
+            <PropertyRef Name="WorkspaceId" />
+          </Key>
+          <Property Name="WorkspaceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WorkspaceAdminId" Type="int" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblWorkspaceMember">
+          <Key>
+            <PropertyRef Name="WorkspaceMember" />
+          </Key>
+          <Property Name="UserId" Type="int" />
+          <Property Name="WorkspaceId" Type="int" />
+          <Property Name="WorkspaceMember" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblProjec__Proje__239E4DCF">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="ProjectAdminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__Proje__29572725">
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="0..1" />
+          <End Role="tblProjectMembers" Type="Self.tblProjectMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProject">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="tblProjectMembers">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__UserI__286302EC">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblProjectMembers" Type="Self.tblProjectMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblProjectMembers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorksp__Proje__2C3393D0">
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="0..1" />
+          <End Role="tblWorkspace" Type="Self.tblWorkspace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProject">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="tblWorkspace">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorksp__UserI__2D27B809">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblWorkspace" Type="Self.tblWorkspace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWorkspace">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorksp__UserI__2F10007B">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblWorkspaceMember" Type="Self.tblWorkspaceMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWorkspaceMember">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorksp__Works__300424B4">
+          <End Role="tblWorkspace" Type="Self.tblWorkspace" Multiplicity="0..1" />
+          <End Role="tblWorkspaceMember" Type="Self.tblWorkspaceMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblWorkspace">
+              <PropertyRef Name="WorkspaceId" />
+            </Principal>
+            <Dependent Role="tblWorkspaceMember">
+              <PropertyRef Name="WorkspaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbProjectManagementModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProject" EntityType="Self.tblProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProjectMembers" EntityType="Self.tblProjectMembers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblWorkspace" EntityType="Self.tblWorkspace" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblWorkspaceMember" EntityType="Self.tblWorkspaceMember" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblProjec__Proje__239E4DCF" Association="Self.FK__tblProjec__Proje__239E4DCF">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblProject" EntitySet="tblProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__Proje__29572725" Association="Self.FK__tblProjec__Proje__29572725">
+            <End Role="tblProject" EntitySet="tblProject" />
+            <End Role="tblProjectMembers" EntitySet="tblProjectMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__UserI__286302EC" Association="Self.FK__tblProjec__UserI__286302EC">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblProjectMembers" EntitySet="tblProjectMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorksp__Proje__2C3393D0" Association="Self.FK__tblWorksp__Proje__2C3393D0">
+            <End Role="tblProject" EntitySet="tblProject" />
+            <End Role="tblWorkspace" EntitySet="tblWorkspace" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorksp__UserI__2D27B809" Association="Self.FK__tblWorksp__UserI__2D27B809">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblWorkspace" EntitySet="tblWorkspace" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorksp__UserI__2F10007B" Association="Self.FK__tblWorksp__UserI__2F10007B">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblWorkspaceMember" EntitySet="tblWorkspaceMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorksp__Works__300424B4" Association="Self.FK__tblWorksp__Works__300424B4">
+            <End Role="tblWorkspace" EntitySet="tblWorkspace" />
+            <End Role="tblWorkspaceMember" EntitySet="tblWorkspaceMember" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbProjectManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblProject">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectAdminId" Type="Int32" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblProjec__Proje__239E4DCF" FromRole="tblProject" ToRole="tblUser" />
+          <NavigationProperty Name="tblProjectMembers" Relationship="Self.FK__tblProjec__Proje__29572725" FromRole="tblProject" ToRole="tblProjectMembers" />
+          <NavigationProperty Name="tblWorkspaces" Relationship="Self.FK__tblWorksp__Proje__2C3393D0" FromRole="tblProject" ToRole="tblWorkspace" />
+        </EntityType>
+        <EntityType Name="tblProjectMember">
+          <Key>
+            <PropertyRef Name="ProjectMemberId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="ProjectMemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tblProject" Relationship="Self.FK__tblProjec__Proje__29572725" FromRole="tblProjectMembers" ToRole="tblProject" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblProjec__UserI__286302EC" FromRole="tblProjectMembers" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserDOB" Type="DateTime" Precision="0" />
+          <Property Name="UserGender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UserProfileImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserBio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserOrganisation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserUserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblProjects" Relationship="Self.FK__tblProjec__Proje__239E4DCF" FromRole="tblUser" ToRole="tblProject" />
+          <NavigationProperty Name="tblProjectMembers" Relationship="Self.FK__tblProjec__UserI__286302EC" FromRole="tblUser" ToRole="tblProjectMembers" />
+          <NavigationProperty Name="tblWorkspaces" Relationship="Self.FK__tblWorksp__UserI__2D27B809" FromRole="tblUser" ToRole="tblWorkspace" />
+          <NavigationProperty Name="tblWorkspaceMembers" Relationship="Self.FK__tblWorksp__UserI__2F10007B" FromRole="tblUser" ToRole="tblWorkspaceMember" />
+          <Property Name="GUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserStatus" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblWorkspace">
+          <Key>
+            <PropertyRef Name="WorkspaceId" />
+          </Key>
+          <Property Name="WorkspaceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkspaceAdminId" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="tblProject" Relationship="Self.FK__tblWorksp__Proje__2C3393D0" FromRole="tblWorkspace" ToRole="tblProject" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblWorksp__UserI__2D27B809" FromRole="tblWorkspace" ToRole="tblUser" />
+          <NavigationProperty Name="tblWorkspaceMembers" Relationship="Self.FK__tblWorksp__Works__300424B4" FromRole="tblWorkspace" ToRole="tblWorkspaceMember" />
+        </EntityType>
+        <EntityType Name="tblWorkspaceMember">
+          <Key>
+            <PropertyRef Name="WorkspaceMember" />
+          </Key>
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="WorkspaceId" Type="Int32" />
+          <Property Name="WorkspaceMember" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK__tblWorksp__UserI__2F10007B" FromRole="tblWorkspaceMember" ToRole="tblUser" />
+          <NavigationProperty Name="tblWorkspace" Relationship="Self.FK__tblWorksp__Works__300424B4" FromRole="tblWorkspaceMember" ToRole="tblWorkspace" />
+        </EntityType>
+        <Association Name="FK__tblProjec__Proje__239E4DCF">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="ProjectAdminId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__Proje__29572725">
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="0..1" />
+          <End Role="tblProjectMembers" Type="Self.tblProjectMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProject">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="tblProjectMembers">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorksp__Proje__2C3393D0">
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="0..1" />
+          <End Role="tblWorkspace" Type="Self.tblWorkspace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProject">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="tblWorkspace">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__UserI__286302EC">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblProjectMembers" Type="Self.tblProjectMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblProjectMembers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorksp__UserI__2D27B809">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblWorkspace" Type="Self.tblWorkspace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWorkspace">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorksp__UserI__2F10007B">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblWorkspaceMember" Type="Self.tblWorkspaceMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWorkspaceMember">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblWorksp__Works__300424B4">
+          <End Role="tblWorkspace" Type="Self.tblWorkspace" Multiplicity="0..1" />
+          <End Role="tblWorkspaceMember" Type="Self.tblWorkspaceMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblWorkspace">
+              <PropertyRef Name="WorkspaceId" />
+            </Principal>
+            <Dependent Role="tblWorkspaceMember">
+              <PropertyRef Name="WorkspaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbProjectManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tblProjects" EntityType="Self.tblProject" />
+          <EntitySet Name="tblProjectMembers" EntityType="Self.tblProjectMember" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <EntitySet Name="tblWorkspaces" EntityType="Self.tblWorkspace" />
+          <EntitySet Name="tblWorkspaceMembers" EntityType="Self.tblWorkspaceMember" />
+          <AssociationSet Name="FK__tblProjec__Proje__239E4DCF" Association="Self.FK__tblProjec__Proje__239E4DCF">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblProject" EntitySet="tblProjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__Proje__29572725" Association="Self.FK__tblProjec__Proje__29572725">
+            <End Role="tblProject" EntitySet="tblProjects" />
+            <End Role="tblProjectMembers" EntitySet="tblProjectMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorksp__Proje__2C3393D0" Association="Self.FK__tblWorksp__Proje__2C3393D0">
+            <End Role="tblProject" EntitySet="tblProjects" />
+            <End Role="tblWorkspace" EntitySet="tblWorkspaces" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__UserI__286302EC" Association="Self.FK__tblProjec__UserI__286302EC">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblProjectMembers" EntitySet="tblProjectMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorksp__UserI__2D27B809" Association="Self.FK__tblWorksp__UserI__2D27B809">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblWorkspace" EntitySet="tblWorkspaces" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorksp__UserI__2F10007B" Association="Self.FK__tblWorksp__UserI__2F10007B">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblWorkspaceMember" EntitySet="tblWorkspaceMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblWorksp__Works__300424B4" Association="Self.FK__tblWorksp__Works__300424B4">
+            <End Role="tblWorkspace" EntitySet="tblWorkspaces" />
+            <End Role="tblWorkspaceMember" EntitySet="tblWorkspaceMembers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbProjectManagementModelStoreContainer" CdmEntityContainer="dbProjectManagementEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="dbProjectManagementModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProjects">
+            <EntityTypeMapping TypeName="dbProjectManagementModel.tblProject">
+              <MappingFragment StoreEntitySet="tblProject">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+                <ScalarProperty Name="ProjectAdminId" ColumnName="ProjectAdminId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProjectMembers">
+            <EntityTypeMapping TypeName="dbProjectManagementModel.tblProjectMember">
+              <MappingFragment StoreEntitySet="tblProjectMembers">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ProjectMemberId" ColumnName="ProjectMemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="dbProjectManagementModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserDOB" ColumnName="UserDOB" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="UserProfileImage" ColumnName="UserProfileImage" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserBio" ColumnName="UserBio" />
+                <ScalarProperty Name="UserOrganisation" ColumnName="UserOrganisation" />
+                <ScalarProperty Name="UserUserName" ColumnName="UserUserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWorkspaces">
+            <EntityTypeMapping TypeName="dbProjectManagementModel.tblWorkspace">
+              <MappingFragment StoreEntitySet="tblWorkspace">
+                <ScalarProperty Name="WorkspaceId" ColumnName="WorkspaceId" />
+                <ScalarProperty Name="WorkspaceAdminId" ColumnName="WorkspaceAdminId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWorkspaceMembers">
+            <EntityTypeMapping TypeName="dbProjectManagementModel.tblWorkspaceMember">
+              <MappingFragment StoreEntitySet="tblWorkspaceMember">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="WorkspaceId" ColumnName="WorkspaceId" />
+                <ScalarProperty Name="WorkspaceMember" ColumnName="WorkspaceMember" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
