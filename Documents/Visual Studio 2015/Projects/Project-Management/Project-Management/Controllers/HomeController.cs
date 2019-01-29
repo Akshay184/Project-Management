@@ -72,13 +72,34 @@ namespace Project_Management.Controllers
                     }
                 }
             }
-            return View();
+            return Redirect("Login");
 
         }
 
-
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
         
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(UserRegistration ToLogin)
+        {
+            ViewBag.Message = "Invalid Credentials";
+            string a = ToLogin.UserPassword;
+            string b = ToLogin.UserEmail;
 
+            dbProjectManagementEntities db = new dbProjectManagementEntities();
+            var user = db.tblUsers.Where(m => m.UserEmail.Equals(ToLogin.UserEmail) && m.UserPassword.Equals(ToLogin.UserPassword)).FirstOrDefault();
+            if(user != null)
+            {
+                Session["UserId"] = user.UserId;
+                Session["UserName"] = user.UserName;
+                ViewBag.Message = "Login Successful";
+            }
+            return RedirectToAction("Index", "Dashboard");      
+        }
     }
 
 
