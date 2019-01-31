@@ -98,7 +98,11 @@ namespace Project_Management.Controllers
                 Session["UserName"] = user.UserName;
                 ViewBag.Message = "Login Successful";
             }
-            return RedirectToAction("Index", "Dashboard");      
+            return View();      
+        }
+        public ActionResult Chat()
+        {
+            return View();
         }
     }
 
