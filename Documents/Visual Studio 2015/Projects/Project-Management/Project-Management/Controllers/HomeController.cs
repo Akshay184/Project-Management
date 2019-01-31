@@ -72,7 +72,7 @@ namespace Project_Management.Controllers
                     }
                 }
             }
-            return Redirect("Login");
+            return View();
 
         }
 
@@ -98,7 +98,7 @@ namespace Project_Management.Controllers
                 Session["UserName"] = user.UserName;
                 ViewBag.Message = "Login Successful";
             }
-            return View();      
+            return RedirectToAction("Chat");      
         }
         public ActionResult Chat()
         {
