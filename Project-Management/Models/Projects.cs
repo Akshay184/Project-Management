@@ -12,5 +12,31 @@ namespace Project_Management.Models
         public string Bio { get; set; }
         public int Admin { get; set; }
 
+
+
+        public void AddProject(Projects CreateProject,int id)
+        {
+            using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
+            {
+                tblProject ToAdd = new tblProject();
+                ToAdd.ProjectName = CreateProject.Name;
+                ToAdd.ProjectDescription = CreateProject.Bio;
+                ToAdd.ProjectAdminId = id;
+                db.tblProjects.Add(ToAdd);
+                db.SaveChanges();
+
+            }
+        }
+
+        public List<tblProject> ListProject(int id)
+        {
+            using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
+            {
+                return db.tblProjects.Where(m=>m.ProjectAdminId==id).ToList();
+            }
+        }
+
+        
     }
 }
+

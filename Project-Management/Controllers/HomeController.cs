@@ -6,10 +6,11 @@ using System.Web.Mvc;
 
 using Project_Management.Models;
 using System.IO;
+using System.Web.Security;
 
 namespace Project_Management.Controllers
 {
-    [System.Runtime.InteropServices.Guid("0C2C6A46-45B7-4907-91DA-D86AC48944BB")]
+   // [System.Runtime.InteropServices.Guid("0C2C6A46-45B7-4907-91DA-D86AC48944BB")]
     public class HomeController : Controller
     {
         // GET: Home
@@ -84,18 +85,21 @@ namespace Project_Management.Controllers
             ViewBag.Message = "Invalid Credentials";
             string a = ToLogin.Password;
             string b = ToLogin.Email;
-           // if (ModelState.IsValid)
-           // {
+           
             
                 dbProjectManagementEntities2 db = new dbProjectManagementEntities2();
+
                 var user = db.tblUsers.Where(m => m.UserEmail.Equals(ToLogin.Email) && m.UserPassword.Equals(ToLogin.Password)).FirstOrDefault();
+           
                 if (user != null)
                 {
+
+                   
                     Session["UserId"] = user.UserId;
                     Session["UserName"] = user.UserName;
                     ViewBag.Message = "Login Successgful";
                 }
-           // }
+           
             return RedirectToAction("Index","Dashboard");
         }
 

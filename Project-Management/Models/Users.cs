@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Web.Mvc;
 using System.IO;
 using System.Data;
 using System.Net.Mail;
 using System.Net;
-using System.Web.Routing;
 
 namespace Project_Management.Models
 {
@@ -92,6 +88,7 @@ namespace Project_Management.Models
 
             }
         }
+        
 
         public void ActivationEmail(Users NewUser, string part)
         {
@@ -128,6 +125,7 @@ namespace Project_Management.Models
                 
                Users UserProfile = new Users();
                 var Profile = db.tblUsers.Where(m => m.UserId == id).SingleOrDefault();
+               
                 UserProfile.Name = Profile.UserName;
                 UserProfile.DOB = Profile.UserDOB;
                 UserProfile.Email = Profile.UserEmail;
@@ -136,6 +134,22 @@ namespace Project_Management.Models
                 UserProfile.Bio = Profile.UserBio;
                 UserProfile.Company = Profile.UserCompany;
                 return UserProfile;
+            }
+        }
+
+        public void Edit(Users ToEdit, int id)
+        {
+            using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
+            {
+
+                var existingUser = db.tblUsers.SingleOrDefault(s => s.UserId == id);
+                existingUser.UserName = ToEdit.Name;
+                existingUser.UserDOB = ToEdit.DOB;
+                existingUser.UserGender = ToEdit.UserGender.ToString();
+                existingUser.UserBio = ToEdit.Bio;
+                existingUser.UserCompany = ToEdit.Company;
+                db.Entry(existingUser).State = EntityState.Modified;
+                db.SaveChanges();
             }
         }
 

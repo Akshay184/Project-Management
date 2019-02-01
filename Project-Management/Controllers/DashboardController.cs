@@ -30,11 +30,19 @@ namespace Project_Management.Controllers
 
             return View(Profile.Profile((int)(Session["UserId"])));
         }
-
+        [HttpGet]
         public ActionResult Edit()
         {
             Users Edit = new Users();
             return View(Edit.Profile((int)(Session["UserId"])));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Users ToEdit)
+        {
+            Users Editing  = new Users();
+            Editing.Edit(ToEdit,(int)Session["UserID"]);
+            return RedirectToAction("Profile");
         }
 
         public ActionResult Logout()
@@ -45,6 +53,7 @@ namespace Project_Management.Controllers
         }
         public ActionResult Message()
         {
+            
             return View();
         }
     }

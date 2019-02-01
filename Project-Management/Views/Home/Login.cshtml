@@ -9,7 +9,7 @@
 
   
 
-@using (Html.BeginForm("Login", "Home", FormMethod.Post))  
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))   
 {  
     <fieldset>  
        
@@ -18,11 +18,12 @@
         @Html.ValidationSummary(true)  
         @if (@ViewBag.Message != null)  
         {  
-            <div style="border: 1px solid red">  
+            <div >  
                 @ViewBag.Message  
             </div>  
         }  
         <table>  
+
             <tr>  
                 <td>@Html.LabelFor(model => model.Email)</td>  
                 <td>@Html.TextBoxFor(a => a.Email)</td>  

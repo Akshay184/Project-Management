@@ -1,17 +1,26 @@
 ﻿(function () {
-$.connection.hub.start()
-   .done(function() {
-       console.log("It Worked");
-        $.connection.hub.logging = true;
-            $.connection.chatHub.server.sendMessage("message here  ")
-        })
-        .fail(function() {
 
-    });
+    $.connection.hub.logging = true;
+    $("#AddMember").click(function () {
+        $.connection.hub.start()
+            .done(function () {
+                console.log("It Worked");
 
-$.connection.chatHub.client.sendMessage = function(message ) {
+                $.connection.chatHub.server.joinRoom($("#Room").val())
 
-    $("#messages").append(message+ "<br />");
-}
+                $.connection.chatHub.server.sendMessage("message here  ", $("#Room").val())
+                $("#Room").val("");
+                console.log("It Worked");
+            })
+                .fail(function () {
+
+                });
+    })
+
+
+    $.connection.chatHub.client.sendMessage = function (message, groupName) {
+       // $("#Room").val("")
+        $("#messages").append(message + "<br />");
+    }
 
 })()

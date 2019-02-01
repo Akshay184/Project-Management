@@ -1,0 +1,45 @@
+﻿@model Project_Management.Models.Projects
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<center>
+    <table border="1">
+
+        <tr>
+            <th>Name</th>
+            <th>Bio</th>
+            <th>Status</th>
+               @** <th>Gender</th>*@
+        </tr>
+
+        @foreach (var employee in ViewBag.Projects)
+        {
+            <tr>
+                <td>@employee.ProjectName</td>
+                <td>@employee.ProjectDescription</td>
+                @if (employee.ProjectAdminId == (int) Session["UserId"])
+                {
+                    <td>Admin</td>
+                }
+                else
+                {
+                    <td>Member</td>
+                }
+
+            @*
+                <td>@employee.Gender</td>
+
+                <td> @Html.ActionLink("Edit", "Edit", new { Id = employee.Id })</td>
+                <td> @Html.ActionLink("Delete", "Delete", new { Id = employee.Id })</td>*@
+
+        </tr>
+        }
+
+    </table>
+</center>
+
+@Html.ActionLink("New Project","CreateNewProject")
+
