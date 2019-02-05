@@ -20,5 +20,6 @@ namespace Project_Management
         public Nullable<int> To_Workspace { get; set; }
         public Nullable<System.DateTime> TimeStrap { get; set; }
         public string Status { get; set; }
+        public string Message { get; set; }
     }
 }

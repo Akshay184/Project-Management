@@ -45,6 +45,12 @@ namespace Project_Management.Controllers
             return RedirectToAction("Profile");
         }
 
+        public ActionResult Requests()
+        {
+
+            return View();
+        }
+
         public ActionResult Logout()
         {
             Session["UserId"] = null;

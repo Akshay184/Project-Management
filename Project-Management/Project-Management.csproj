@@ -223,6 +223,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Messages.cs" />
     <Compile Include="Models\ProjectMembers.cs" />
     <Compile Include="Models\Projects.cs" />
     <Compile Include="Models\Users.cs" />
@@ -243,6 +244,12 @@
       <DependentUpon>ProjectManagementModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ProjectManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>ProjectManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="sysdiagram.cs">
       <DependentUpon>ProjectManagementModel.tt</DependentUpon>
@@ -303,6 +310,8 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.signalR-2.4.0.js" />
     <Content Include="Scripts\jquery.signalR-2.4.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -363,6 +372,7 @@
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Project\CreateNewProject.cshtml" />
     <Content Include="Views\Project\AddMembers.cshtml" />
+    <Content Include="Views\Shared\AddToGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

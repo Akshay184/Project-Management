@@ -8,6 +8,7 @@ using System.IO;
 using System.Data;
 using System.Net.Mail;
 using System.Net;
+using System.Collections.Generic;
 
 namespace Project_Management.Models
 {
@@ -153,7 +154,14 @@ namespace Project_Management.Models
             }
         }
 
-
+        public List<tblUser> Organistaion(int id)
+        {
+            using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
+            {
+                var authentic = db.tblUsers.Where(m => m.UserId == id).SingleOrDefault();
+                return db.tblUsers.Where(m => m.UserCompany == authentic.UserCompany).ToList();
+            }
+        }
     }
 
 }

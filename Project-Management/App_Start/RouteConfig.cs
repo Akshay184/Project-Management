@@ -14,6 +14,11 @@ namespace Project_Management
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "ProjectMembers",
+                "Projects/AddMembers/{ProjectName}/{UserId}",
+                new {Controller="Projects", action = "AddToGroup"});
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

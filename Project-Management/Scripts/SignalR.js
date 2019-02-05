@@ -9,7 +9,7 @@
                 $.connection.chatHub.server.joinRoom($("#Room").val())
 
                 $.connection.chatHub.server.sendMessage("message here  ", $("#Room").val())
-                $("#Room").val("");
+               
                 console.log("It Worked");
             })
                 .fail(function () {

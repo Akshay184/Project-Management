@@ -31,13 +31,22 @@ namespace Project_Management.Controllers
         {
             Projects ToAdd = new Projects();
             ToAdd.AddProject(AddProject,(int)Session["UserId"]);
-            return RedirectToAction("AddMembers");
+            return RedirectToAction("AddMembers",new {Id = AddProject.Name });
         }
 
         public ActionResult AddMembers()
         {
-
+            Users organization  = new Users();
+            ViewBag.List = organization.Organistaion((int) Session["UserId"]);
             return View();
+        }
+
+        public PartialViewResult AddToGroup(string ProjectName,int UserId)
+        {
+            ProjectMembers addMember = new ProjectMembers(); ;
+            ViewBag.Member =   addMember.ProjectMember(UserId,ProjectName);
+            return PartialView("AddToGroup");
+
         }
     }
 }

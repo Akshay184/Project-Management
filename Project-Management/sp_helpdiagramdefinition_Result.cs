@@ -10,16 +10,10 @@
 namespace Project_Management
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tblProjectMember
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int Id { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public Nullable<int> ProjectId { get; set; }
-        public Nullable<bool> Status { get; set; }
-    
-        public virtual tblProject tblProject { get; set; }
-        public virtual tblUser tblUser { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }
