@@ -5,44 +5,73 @@
 
 <h2>Message</h2>
 
+
+
 <input type="text" id="Room" />
 <input type="button" id="AddMember" value="Send" />
 <div id="messages"></div>
+
+
+
 @section scripts {
 
     <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
     <script src="~/signalr/js"></script>
-    @*<script src="~/Scripts/SignalR.js"></script>*@
+    @*<script type="text/javascript">
 
-    <script>
-        (function () {
+        //  var variable1 = Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Room));
+        //   var variable1 =@ViewBag.Room;
 
-            $.connection.hub.logging = true;
-            $("#AddMember").click(function () {
-                $.connection.hub.start()
-                    .done(function () {
-                        console.log("It Worked");
+    </script>*@
+    <script type="text/javascript">
+        var group = '@ViewBag.Room';
+            /*
+            var array = Html.Raw(
+                            Json.Encode(
+                                ((IEnumerable<tblProject>)ViewBag.Room).Select(user => new 
+                                { 
+                                    userId = user.ProjectName, 
+                               
+                                })
+                                )
+                            );
+    */
 
-                        //    $.connection.chatHub.server.joinRoom($("#Room").val())
-                          $.connection.chatHub.server.joinRoom($("#Room").val())
+                alert(group);
+            (function () {
+                
+                
+                $.connection.hub.logging = true;
+                $("#AddMember").click(function () {
+                    $.connection.hub.start()
+                        .done(function () {
+                            console.log("It Worked");
+               
+                        
+                      
+                
+                            $.connection.chatHub.server.joinRoom(group)
 
-                        $.connection.chatHub.server.sendMessage("message here  ", $("#Room").val())
+                            $.connection.chatHub.server.sendMessage($("#Room").val(), group)
+                            $("#Room").val(" ");
+                            console.log("It Worked");
+                        })
+                        .fail(function () {
 
-                        console.log("It Worked");
-                    })
-                    .fail(function () {
-
-                    });
-            })
+                        });
+                })
 
 
-            $.connection.chatHub.client.sendMessage = function (message, groupName) {
-                // $("#Room").val("")
-                $("#messages").append(message + "<br />");
-            }
+                $.connection.chatHub.client.sendMessage = function (message, groupName) {
+                
+                    $("#messages").append(message + "<br />");
+                }
 
-        })()
+            })()
 
     </script>
+   
+
+
 }
 

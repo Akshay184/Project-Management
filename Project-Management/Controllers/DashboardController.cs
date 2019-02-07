@@ -57,9 +57,11 @@ namespace Project_Management.Controllers
             Session["UserName"] = null;
             return View();
         }
-        public ActionResult Message()
+        public ActionResult Message(string ProjectName)
         {
-            
+            ProjectMembers group = new ProjectMembers();
+           // ViewBag.Room = group.Groups((int)Session["UserId"]);
+            ViewBag.Room = ProjectName;
             return View();
         }
     }

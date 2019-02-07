@@ -10,7 +10,8 @@ using System.Web.Security;
 
 namespace Project_Management.Controllers
 {
-   // [System.Runtime.InteropServices.Guid("0C2C6A46-45B7-4907-91DA-D86AC48944BB")]
+    // [System.Runtime.InteropServices.Guid("0C2C6A46-45B7-4907-91DA-D86AC48944BB")]
+    [System.Runtime.InteropServices.Guid("83785B71-DA73-40FF-968B-BDF15052F552")]
     public class HomeController : Controller
     {
         // GET: Home

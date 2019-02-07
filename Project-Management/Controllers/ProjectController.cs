@@ -14,8 +14,7 @@ namespace Project_Management.Controllers
         //    [Authorize]
         public ActionResult Index()
         {
-            Projects List = new Projects();
-            ViewBag.Projects = List.ListProject((int)Session["UserId"]);
+            
             
             return View();
         }
@@ -47,6 +46,13 @@ namespace Project_Management.Controllers
             ViewBag.Member =   addMember.ProjectMember(UserId,ProjectName);
             return PartialView("AddToGroup");
 
+        }
+
+        public ActionResult Projects()
+        {
+            Projects List = new Projects();
+            ViewBag.Projects = List.ListProject((int)Session["UserId"]);
+            return View();
         }
     }
 }

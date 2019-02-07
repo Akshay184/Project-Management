@@ -6,6 +6,7 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using Project_Management.Models;
 
+
 namespace Project_Management
 {
     public class ChatHub : Hub
@@ -23,9 +24,9 @@ namespace Project_Management
         {
            
             await Groups.Add(Context.ConnectionId, roomName);
-            Clients.Group(roomName).SendMessage("Akshay" + " joined.");
+          //  Clients.Group(roomName).SendMessage("Akshay" + " joined.");
         }
 
-
+       
     }
 }

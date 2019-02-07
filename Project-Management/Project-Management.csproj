@@ -373,6 +373,7 @@
     <Content Include="Views\Project\CreateNewProject.cshtml" />
     <Content Include="Views\Project\AddMembers.cshtml" />
     <Content Include="Views\Shared\AddToGroup.cshtml" />
+    <Content Include="Views\Project\Projects.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

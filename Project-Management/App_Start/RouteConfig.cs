@@ -19,6 +19,11 @@ namespace Project_Management
                 new {Controller="Projects", action = "AddToGroup"});
 
             routes.MapRoute(
+                "Projects",
+                "Dashboard/Message/{ProjectName}",
+                new { Controller = "Dashboard", action = "Message" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

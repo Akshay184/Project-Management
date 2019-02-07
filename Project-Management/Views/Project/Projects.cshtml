@@ -1,0 +1,7 @@
+﻿
+@foreach (var project in ViewBag.Projects)
+{
+    
+    @Html.ActionLink((string)project.ProjectName,"Message","Dashboard",new {ProjectName = project.ProjectName},false);
+    <br/>
+}
