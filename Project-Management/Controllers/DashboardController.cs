@@ -13,23 +13,30 @@ namespace Project_Management.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
-            /*if (Session["UserId"] == null)
+            if (Session["UserId"] == null)
             {
-                return RedirectToAction("Login", "Home");
+                return RedirectToAction("Index", "Login");
             }
             else
-            {*/
+            {
                 return View();
-          //  }
+            }
            
         }
 
-        public ActionResult Profile()
+        public ActionResult Profile(int auth)
         {
             Users Profile  = new Users();
-           
+            if (Profile.Profile(auth) != null)
+            {
+                return View(Profile.Profile(auth));
+            }
+            else
+            {
+                return (HttpNotFound());
+            }
 
-            return View(Profile.Profile((int)(Session["UserId"])));
+            
         }
         [HttpGet]
         public ActionResult Edit()
@@ -58,11 +65,11 @@ namespace Project_Management.Controllers
             Session["UserName"] = null;
             return View();
         }
-        public ActionResult Message(string ProjectName)
+        public ActionResult Message(string  ProjectId)
         {
             ProjectMembers group = new ProjectMembers();
            // ViewBag.Room = group.Groups((int)Session["UserId"]);
-            ViewBag.Room = ProjectName;
+            ViewBag.Room = ProjectId;
             return View();
         }
     }

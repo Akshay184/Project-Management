@@ -37,26 +37,21 @@ namespace Project_Management.Models
             }
         }
 
-        public int AddAdmin(int id, string ProjectName)
+        public void AddAdmin(int id, string ProjectName)
         {
             using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
             {
-                var project = db.tblProjects.Where(m => m.ProjectName == ProjectName).FirstOrDefault();
-                var addedUser = db.tblProjectMembers.Where(m => m.ProjectId == project.ProjectId).SingleOrDefault(m => m.UserId == id);
-                if (addedUser == null)
-                {
+                var project = db.tblProjects.Where(m => m.ProjectName == ProjectName).SingleOrDefault();
+                
                     tblProjectMember add = new tblProjectMember();
                     add.UserId = id;
-                    add.Status = null;
+                    add.Status = true;
                     add.ProjectId = project.ProjectId;
                     db.tblProjectMembers.Add(add);
                     db.SaveChanges();
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+                    
+                
+               
             }
         }
 

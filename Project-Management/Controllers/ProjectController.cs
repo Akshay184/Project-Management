@@ -30,6 +30,8 @@ namespace Project_Management.Controllers
         {
             Projects ToAdd = new Projects();
             ToAdd.AddProject(AddProject,(int)Session["UserId"]);
+            ProjectMembers add = new ProjectMembers();
+            add.AddAdmin((int)Session["UserId"],AddProject.Name);
             return RedirectToAction("AddMembers",new {Id = AddProject.Name });
         }
 

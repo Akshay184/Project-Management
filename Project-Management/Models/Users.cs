@@ -9,6 +9,7 @@ using System.Data;
 using System.Net.Mail;
 using System.Net;
 using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Project_Management.Models
 {
@@ -128,16 +129,23 @@ namespace Project_Management.Models
                 
                Users UserProfile = new Users();
                 var Profile = db.tblUsers.Where(m => m.UserId == id).SingleOrDefault();
+                if (Profile != null)
+                {
+                    UserProfile.Name = Profile.UserName;
+                    UserProfile.DOB = Profile.UserDOB;
+                    UserProfile.Email = Profile.UserEmail;
+                    UserProfile.Username = Profile.UserUserName;
+                    UserProfile.DOB = Profile.UserDOB;
+                    UserProfile.Bio = Profile.UserBio;
+                    UserProfile.Company = Profile.UserCompany;
+                    UserProfile.ProfileImage = Profile.UserProfileImage;
+                    return UserProfile;
+                }
+                else
+                {
+                    return null;
+                }
                
-                UserProfile.Name = Profile.UserName;
-                UserProfile.DOB = Profile.UserDOB;
-                UserProfile.Email = Profile.UserEmail;
-                UserProfile.Username = Profile.UserUserName;
-                UserProfile.DOB = Profile.UserDOB;
-                UserProfile.Bio = Profile.UserBio;
-                UserProfile.Company = Profile.UserCompany;
-                UserProfile.ProfileImage = Profile.UserProfileImage;
-                return UserProfile;
             }
         }
 
@@ -162,7 +170,7 @@ namespace Project_Management.Models
             using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
             {
                 var authentic = db.tblUsers.Where(m => m.UserId == id).SingleOrDefault();
-                return db.tblUsers.Where(m => m.UserCompany == authentic.UserCompany).ToList();
+                return db.tblUsers.Where(m => m.UserCompany == authentic.UserCompany && m.UserId != id).ToList();
             }
         }
     }

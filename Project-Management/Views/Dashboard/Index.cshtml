@@ -4,7 +4,7 @@
 }
 
 <h2>Index</h2>
-@Html.ActionLink("View Profile","Profile")
+@Html.ActionLink("View Profile","Profile",new {auth = @Session["UserId"]})
 <br />
 @Html.ActionLink("Edit Profile", "Edit")
 <br />
