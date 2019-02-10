@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -32,46 +33,23 @@ namespace Project_Management.Controllers
 
             string Filename = Path.GetFileNameWithoutExtension(NewUser.ImageUpload.FileName);
             string extension = Path.GetExtension(NewUser.ImageUpload.FileName);
-            Filename = Filename + extension;
-
+            
+            Filename = Filename + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + extension;
+            NewUser1.Register(NewUser, Filename);
             Filename = Path.Combine(Server.MapPath("~/UserProfileImage/"), Filename);
+            NewUser.ImageUpload.SaveAs(Filename);
             Guid activationCode = Guid.NewGuid();
             NewUser.ActivationGuid = activationCode.ToString();
 
 
-            NewUser1.Register(NewUser, Filename);
-            string link = "<br /><a href = '" + string.Format("{0}://{1}/Home/Activation/{2}", Request.Url.Scheme, Request.Url.Authority, NewUser.ActivationGuid) + "'>Click here to activate your account.</a>";
+           
+            string link = "<br /><a href = '" + string.Format("{0}://{1}/Login/Activation/{2}", Request.Url.Scheme, Request.Url.Authority, NewUser.ActivationGuid) + "'>Click here to activate your account.</a>";
             NewUser1.ActivationEmail(NewUser, link);
 
             return RedirectToAction("Index");
 
         }
 
-        public ActionResult Activation()
-        {
-            ViewBag.ActivationMessage = "Invalid Activation Code";
-            if (RouteData.Values["id"] != null)
-            {
-                string Activationcode = RouteData.Values["id"].ToString();
-                using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
-                {
-
-                    tblUser ToActivate = db.tblUsers.Where(m => m.GUID == Activationcode).SingleOrDefault();
-                    if (ToActivate != null)
-                    {
-                        ToActivate.UserStatus = true;
-                        db.SaveChanges();
-                        ViewBag.ActivationMessage = "Activated Successfully";
-                    }
-
-
-                }
-
-
-            }
-
-            return View();
-        }
        
 
 

@@ -14,6 +14,7 @@
     <div class="form-horizontal">
         <h4>Login</h4>
         <p class ="color">@ViewBag.ErrorMessage</p>
+        <p class="green">@ViewBag.Activate</p>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -45,6 +46,9 @@
     <style>
         .color{
             color: Red;
+        }
+        .green{
+            color:green;
         }
     </style>
 }

@@ -7,19 +7,20 @@ using System.Web.Mvc;
 
 namespace Project_Management.Controllers
 {
+    
     public class DashboardController : Controller
     {
         // GET: Dashboard
         public ActionResult Index()
         {
-            if (Session["UserId"] == null)
+            /*if (Session["UserId"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
             else
-            {
+            {*/
                 return View();
-            }
+          //  }
            
         }
 
@@ -57,12 +58,12 @@ namespace Project_Management.Controllers
             Session["UserName"] = null;
             return View();
         }
-        /*public ActionResult Message(string ProjectName)
+        public ActionResult Message(string ProjectName)
         {
             ProjectMembers group = new ProjectMembers();
            // ViewBag.Room = group.Groups((int)Session["UserId"]);
             ViewBag.Room = ProjectName;
             return View();
-        }*/
+        }
     }
 }

@@ -47,12 +47,20 @@
         <dd>
             @Html.DisplayFor(model => model.Username)
         </dd>
-
        
-
+        <dd>
+           
+            <img   src="@Model.ProfileImage" width="10%" />
+         
+           
+        </dd>
+        <dd>
+           
+        </dd>
     </dl>
+    
+    
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+   
 </p>

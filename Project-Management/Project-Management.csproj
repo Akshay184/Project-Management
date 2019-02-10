@@ -322,12 +322,28 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\SignalR.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="StyleImages\adult-agency-analyzing-1056557.jpg" />
+    <Content Include="StyleImages\adult-analyzing-board-1376869.jpg" />
+    <Content Include="StyleImages\adult-architect-architectural-design-1260309.jpg" />
+    <Content Include="StyleImages\adult-board-brainstorming-1532191.jpg" />
+    <Content Include="StyleImages\adults-agenda-brainstorming-1451449.jpg" />
+    <Content Include="StyleImages\agenda-concept-development-7376.jpg" />
+    <Content Include="StyleImages\agreement-black-business-943630.jpg" />
+    <Content Include="StyleImages\analysis-business-coffee-1549702.jpg" />
+    <Content Include="StyleImages\art-handwriting-note-636243.jpg" />
+    <Content Include="StyleImages\bible-biblia-book-1112048.jpg" />
+    <Content Include="StyleImages\blueprint-company-concept-7366.jpg" />
+    <Content Include="StyleImages\blur-depth-of-field-focus-1712326.jpg" />
+    <Content Include="StyleImages\book-bindings-composition-desk-891059.jpg" />
+    <Content Include="StyleImages\book-books-bookshelf-159621.jpg" />
     <Content Include="UserProfileImage\akshay new.jpeg" />
     <Content Include="UserProfileImage\background2.png" />
     <Content Include="UserProfileImage\bgf %282%29.png" />
     <Content Include="UserProfileImage\pad-clipart-cartoon-1 %281%29.png" />
     <Content Include="UserProfileImage\waeter1234.png" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -361,7 +377,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\Activation.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
@@ -376,6 +391,7 @@
     <Content Include="Views\Project\Projects.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

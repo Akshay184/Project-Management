@@ -23,9 +23,10 @@ namespace Project_Management.Models
        
         [Display(Name = "Enter DOB")]
 
-
+        [Required]
         public DateTime? DOB { get; set; }
         [Required(ErrorMessage = "Required")]
+        
         public Gender UserGender { get; set; }
         [DisplayName("UploadImage")]
         [Required(ErrorMessage = "Required")]
@@ -39,8 +40,9 @@ namespace Project_Management.Models
         public string Password { get; set; }
         [Required(ErrorMessage = "Required")]
         public string Username { get; set; }
-
+        [Required]
         public string Company { get; set; }
+        [Required]
         public string Bio { get; set; }
        
 
@@ -77,12 +79,12 @@ namespace Project_Management.Models
 
 
 
-                NewUser.ImageUpload.SaveAs(Filename);
-                string Filename1 = Path.GetFileNameWithoutExtension(NewUser.ImageUpload.FileName);
+              
+                /*string Filename1 = Path.GetFileNameWithoutExtension(NewUser.ImageUpload.FileName);
                 string extension = Path.GetExtension(NewUser.ImageUpload.FileName);
 
-                Filename1 = Filename1 + extension;
-                CreateUser.UserProfileImage = "~/UserProfileImage/" + Filename1;
+                Filename1 = Filename1 + System.DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss") + extension;*/
+                CreateUser.UserProfileImage = "/UserProfileImage/" + Filename;
 
                 db.tblUsers.Add((CreateUser));
                 db.SaveChanges();
@@ -96,7 +98,7 @@ namespace Project_Management.Models
             using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
             {
                 tblUser CreatedUser = new tblUser();
-                using (MailMessage mm = new MailMessage("projectmanagementcommunity@gmail.com", NewUser.Email))
+                using ( MailMessage mm = new MailMessage("projectmanagementcommunity@gmail.com", NewUser.Email))
                 {
 
                     mm.Subject = "Account Activation";
@@ -134,6 +136,7 @@ namespace Project_Management.Models
                 UserProfile.DOB = Profile.UserDOB;
                 UserProfile.Bio = Profile.UserBio;
                 UserProfile.Company = Profile.UserCompany;
+                UserProfile.ProfileImage = Profile.UserProfileImage;
                 return UserProfile;
             }
         }

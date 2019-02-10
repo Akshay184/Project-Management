@@ -23,10 +23,31 @@ namespace Project_Management.Models
                 if (authentic != null)
                 {
                     return true;
-                }   
+                }
             }
 
             return false;
+        }
+
+        public int Authenticate(Login user)
+        {
+            using (dbProjectManagementEntities2 db = new dbProjectManagementEntities2())
+            {
+                var auth = db.tblUsers.Where(m => m.UserEmail == user.Email && m.UserPassword == user.Password).SingleOrDefault();
+                if (auth == null)
+                {
+                    return 0;
+                }
+                else if(auth != null && auth.UserStatus == false)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return auth.UserId;
+                }
+            }
+
         }
 
 
