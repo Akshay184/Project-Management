@@ -1,0 +1,53 @@
+﻿@using Project_Management.Models
+@{
+    ViewBag.Title = "AddMembers";
+}
+
+
+<h2>AddMembers</h2>
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}
+<div>
+    <table>
+        @foreach (var user in ViewBag.List)
+
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink((string)@user.UserName, "Profile", "Dashboard", new { Id = @user.UserId }, null)
+                </td>
+                <td>
+
+                    @Html.CheckBox((string)@user.UserName, new { id = @user.UserId })
+                   @{
+                       var a = Request.Url.Segments.Last();
+                   }
+                    @Ajax.ActionLink("Add User", "AddToGroup", new {ProjectName=a, UserId = (int)@user.UserId }, new AjaxOptions
+               {
+                   HttpMethod = "POST",
+                   UpdateTargetId = "update",
+                   InsertionMode = InsertionMode.InsertAfter
+               })
+                </td>
+                <td>
+                    <div id="update">
+
+                    </div>
+
+                </td>
+            </tr>
+
+
+        }
+
+    </table>
+
+
+
+
+</div>
+
+
