@@ -20,6 +20,7 @@
 
     <script type="text/javascript">
         var group = '@ViewBag.Room';
+        var id = '@ViewBag.id';
         (function() {
             $.connection.hub.start()
                 .done(function() {
@@ -39,7 +40,7 @@
                 });
 
 
-            $.connection.chatHub.client.sendMessage = function(message, groupName) {
+            $.connection.chatHub.client.sendMessage = function(message, id) {
                 $("#messages").append(message + "<br />");
             }
         })();
@@ -56,14 +57,4 @@
 
 
 
-@*
-    var array = Html.Raw(
-    Json.Encode(
-    ((IEnumerable<tblProject>)ViewBag.Room).Select(user => new
-    {
-    userId = user.ProjectName,
 
-    })
-    )
-    );
-*@

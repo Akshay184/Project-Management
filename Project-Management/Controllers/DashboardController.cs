@@ -1,6 +1,7 @@
 ﻿using Project_Management.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -68,7 +69,7 @@ namespace Project_Management.Controllers
         public ActionResult Message(string  ProjectId)
         {
             ProjectMembers group = new ProjectMembers();
-           // ViewBag.Room = group.Groups((int)Session["UserId"]);
+            ViewBag.id = Session["UserId"];
             ViewBag.Room = ProjectId;
             return View();
         }

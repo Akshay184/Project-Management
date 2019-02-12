@@ -52,8 +52,8 @@ namespace Project_Management.Controllers
 
         public ActionResult Projects()
         {
-            Projects List = new Projects();
-            ViewBag.Projects = List.ListProject((int)Session["UserId"]);
+            ProjectMembers List = new ProjectMembers();
+            ViewBag.Projects = List.Groups((int)Session["UserId"]);
             return View();
         }
     }

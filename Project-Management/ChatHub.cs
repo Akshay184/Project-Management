@@ -27,6 +27,18 @@ namespace Project_Management
           //  Clients.Group(roomName).SendMessage("Akshay" + " joined.");
         }
 
-       
+        public async Task JoinRoomAll(int id)
+        {
+            Projects List = new Projects();
+            var room = List.ListProject(id);
+            foreach (var projects in room)
+            {
+                await Groups.Add(Context.ConnectionId, projects.ProjectId.ToString());
+            }
+           
+            //  Clients.Group(roomName).SendMessage("Akshay" + " joined.");
+        }
+
+
     }
 }
