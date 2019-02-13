@@ -15,14 +15,14 @@
 {
 if ((int)Session["UserId"] == (int)@Message.From_User)
  {
-     <p class="left">
+     <p class="right">
          <span>@Message.TimeStrap  |</span>
          <span>@Message.Message</span>
      </p>
 }
  else
  {
-     <p class="right">
+     <p class="left">
          <span>@Message.TimeStrap  |</span>
          <span>@Message.Message</span>
      </p>
@@ -31,8 +31,10 @@ if ((int)Session["UserId"] == (int)@Message.From_User)
 
 }
 
-
-<div id="messages"></div>
+<div id="container">
+    
+    
+</div>
 
 
 
@@ -44,6 +46,7 @@ if ((int)Session["UserId"] == (int)@Message.From_User)
     <script type="text/javascript">
         var group = '@ViewBag.Room';
         var id = '@ViewBag.id';
+        var i = 0;
         (function () {
             $.connection.hub.start()
                 .done(function () {
@@ -63,8 +66,20 @@ if ((int)Session["UserId"] == (int)@Message.From_User)
                 });
 
 
-            $.connection.chatHub.client.sendMessage = function (message, id) {
-                $("#messages").append(message + "<br />");
+            $.connection.chatHub.client.sendMessage = function (message,group, idd) {
+                if (id == idd) {
+
+                    var txt2 = $("<p ></p>").text(message).css("text-align","right");
+                    $("#container").append(txt2);
+                    
+                } else {
+                    var txt2 = $("<p></p>").text(message).css("text-align", "left");
+                    $("#container").append(txt2);
+                   
+                }
+
+                
+               
             }
         })();
 
@@ -73,12 +88,22 @@ if ((int)Session["UserId"] == (int)@Message.From_User)
 
     </script>
     <style>
+        .container{
+            width:100%;
+        }
         .left{
+           
             text-align: left;
+            
+           
         }
         .right{
-            text-align: right;
+           
+             text-align: right;
+            
+
         }
+    
     </style>
 
 

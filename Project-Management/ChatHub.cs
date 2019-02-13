@@ -14,7 +14,7 @@ namespace Project_Management
         public void SendMessage(string Message, int GroupName,int UserId)
         {
 
-            Clients.Group(GroupName.ToString()).SendMessage(Message);
+            Clients.Group(GroupName.ToString()).SendMessage(Message,GroupName,UserId);
             Messages mssg = new Messages();
             mssg.AddMessage(UserId,Message,GroupName);
             
