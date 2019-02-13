@@ -15,7 +15,7 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="tblMessages">
+        <EntityType Name="tblMessage">
           <Key>
             <PropertyRef Name="MessageId" />
           </Key>
@@ -23,9 +23,9 @@
           <Property Name="From_User" Type="int" />
           <Property Name="To_Project" Type="int" />
           <Property Name="To_Workspace" Type="int" />
-          <Property Name="TimeStrap" Type="datetime" />
-          <Property Name="Status" Type="nvarchar(max)" />
           <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="TimeStrap" Type="datetime" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="tblProjectMembers">
           <Key>
@@ -195,7 +195,7 @@
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="dbProjectManagementModelStoreContainer">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblMessages" EntityType="Self.tblMessages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMessage" EntityType="Self.tblMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProjectMembers" EntityType="Self.tblProjectMembers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProjects" EntityType="Self.tblProjects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
@@ -243,18 +243,6 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="tblMessage">
-          <Key>
-            <PropertyRef Name="MessageId" />
-          </Key>
-          <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="From_User" Type="Int32" />
-          <Property Name="To_Project" Type="Int32" />
-          <Property Name="To_Workspace" Type="Int32" />
-          <Property Name="TimeStrap" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblProjectMember">
           <Key>
@@ -407,7 +395,6 @@
         </Association>
         <EntityContainer Name="dbProjectManagementEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="tblMessages" EntityType="Self.tblMessage" />
           <EntitySet Name="tblProjectMembers" EntityType="Self.tblProjectMember" />
           <EntitySet Name="tblProjects" EntityType="Self.tblProject" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
@@ -471,7 +458,8 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-        </EntityContainer>
+          <EntitySet Name="tblMessages" EntityType="dbProjectManagementModel.tblMessage" />
+          </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -483,7 +471,19 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-      </Schema>
+        <EntityType Name="tblMessage">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="From_User" Type="Int32" />
+          <Property Name="To_Project" Type="Int32" />
+          <Property Name="To_Workspace" Type="Int32" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TimeStrap" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -497,19 +497,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblMessages">
-            <EntityTypeMapping TypeName="dbProjectManagementModel.tblMessage">
-              <MappingFragment StoreEntitySet="tblMessages">
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
-                <ScalarProperty Name="From_User" ColumnName="From_User" />
-                <ScalarProperty Name="To_Project" ColumnName="To_Project" />
-                <ScalarProperty Name="To_Workspace" ColumnName="To_Workspace" />
-                <ScalarProperty Name="TimeStrap" ColumnName="TimeStrap" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -593,6 +580,19 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="dbProjectManagementModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="dbProjectManagementModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="tblMessages">
+            <EntityTypeMapping TypeName="dbProjectManagementModel.tblMessage">
+              <MappingFragment StoreEntitySet="tblMessage">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TimeStrap" ColumnName="TimeStrap" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="To_Workspace" ColumnName="To_Workspace" />
+                <ScalarProperty Name="To_Project" ColumnName="To_Project" />
+                <ScalarProperty Name="From_User" ColumnName="From_User" />
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

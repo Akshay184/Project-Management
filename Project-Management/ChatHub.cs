@@ -11,10 +11,12 @@ namespace Project_Management
 {
     public class ChatHub : Hub
     {
-        public void SendMessage(string Message, string GroupName)
+        public void SendMessage(string Message, int GroupName,int UserId)
         {
 
-            Clients.Group(GroupName).SendMessage(Message);
+            Clients.Group(GroupName.ToString()).SendMessage(Message);
+            Messages mssg = new Messages();
+            mssg.AddMessage(UserId,Message,GroupName);
             
 
         }

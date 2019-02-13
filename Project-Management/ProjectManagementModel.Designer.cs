@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Akshay\documents\visual studio 2015\Projects\Project-Management\Project-Management\ProjectManagementModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Akshay\Desktop\pm\project management main\Project-Management\Project-Management\ProjectManagementModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

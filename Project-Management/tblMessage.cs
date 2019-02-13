@@ -18,8 +18,8 @@ namespace Project_Management
         public Nullable<int> From_User { get; set; }
         public Nullable<int> To_Project { get; set; }
         public Nullable<int> To_Workspace { get; set; }
-        public Nullable<System.DateTime> TimeStrap { get; set; }
-        public string Status { get; set; }
         public string Message { get; set; }
+        public Nullable<System.DateTime> TimeStrap { get; set; }
+        public Nullable<bool> Status { get; set; }
     }
 }

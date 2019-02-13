@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Project_Management.Controllers
 {
-    
+
     public class DashboardController : Controller
     {
         // GET: Dashboard
@@ -22,12 +22,12 @@ namespace Project_Management.Controllers
             {
                 return View();
             }
-           
+
         }
 
         public ActionResult Profile(int auth)
         {
-            Users Profile  = new Users();
+            Users Profile = new Users();
             if (Profile.Profile(auth) != null)
             {
                 return View(Profile.Profile(auth));
@@ -37,7 +37,7 @@ namespace Project_Management.Controllers
                 return (HttpNotFound());
             }
 
-            
+
         }
         [HttpGet]
         public ActionResult Edit()
@@ -49,8 +49,8 @@ namespace Project_Management.Controllers
         [HttpPost]
         public ActionResult Edit(Users ToEdit)
         {
-            Users Editing  = new Users();
-            Editing.Edit(ToEdit,(int)Session["UserID"]);
+            Users Editing = new Users();
+            Editing.Edit(ToEdit, (int)Session["UserID"]);
             return RedirectToAction("Profile");
         }
 
@@ -66,11 +66,13 @@ namespace Project_Management.Controllers
             Session["UserName"] = null;
             return View();
         }
-        public ActionResult Message(string  ProjectId)
+        public ActionResult Message(int ProjectId)
         {
             ProjectMembers group = new ProjectMembers();
             ViewBag.id = Session["UserId"];
             ViewBag.Room = ProjectId;
+            Messages mssg = new Messages();
+            ViewBag.ShowMessage = mssg.GetMessgae(ProjectId);
             return View();
         }
     }

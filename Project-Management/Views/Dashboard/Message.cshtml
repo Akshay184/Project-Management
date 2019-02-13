@@ -9,6 +9,29 @@
 
 <input type="text" id="Room" />
 <input type="button" id="AddMember" value="Send" />
+<br />
+
+@foreach (var Message in ViewBag.ShowMessage)
+{
+if ((int)Session["UserId"] == (int)@Message.From_User)
+ {
+     <p class="left">
+         <span>@Message.TimeStrap  |</span>
+         <span>@Message.Message</span>
+     </p>
+}
+ else
+ {
+     <p class="right">
+         <span>@Message.TimeStrap  |</span>
+         <span>@Message.Message</span>
+     </p>
+ }
+
+
+}
+
+
 <div id="messages"></div>
 
 
@@ -21,34 +44,42 @@
     <script type="text/javascript">
         var group = '@ViewBag.Room';
         var id = '@ViewBag.id';
-        (function() {
+        (function () {
             $.connection.hub.start()
-                .done(function() {
+                .done(function () {
 
                     $.connection.chatHub.server.joinRoom(group);
                     $.connection.hub.logging = true;
                     console.log("It Worked");
-                    $("#AddMember").click(function() {
-                        $.connection.chatHub.server.sendMessage($("#Room").val(), group)
+                    $("#AddMember").click(function () {
+                        $.connection.chatHub.server.sendMessage($("#Room").val(), group, id)
                         $("#Room").val(" ");
                         console.log("It Worked");
                     });
 
                 })
-                .fail(function() {
+                .fail(function () {
                     alert("pramod ho gya");
                 });
 
 
-            $.connection.chatHub.client.sendMessage = function(message, id) {
+            $.connection.chatHub.client.sendMessage = function (message, id) {
                 $("#messages").append(message + "<br />");
             }
         })();
-      
 
-       
+
+
 
     </script>
+    <style>
+        .left{
+            text-align: left;
+        }
+        .right{
+            text-align: right;
+        }
+    </style>
 
 
 

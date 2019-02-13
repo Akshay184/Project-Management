@@ -28,12 +28,12 @@ namespace Project_Management
         }
     
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<tblMessage> tblMessages { get; set; }
         public virtual DbSet<tblProjectMember> tblProjectMembers { get; set; }
         public virtual DbSet<tblProject> tblProjects { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblWorkspace> tblWorkspaces { get; set; }
         public virtual DbSet<tblWorkspaceMember> tblWorkspaceMembers { get; set; }
+        public virtual DbSet<tblMessage> tblMessages { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
