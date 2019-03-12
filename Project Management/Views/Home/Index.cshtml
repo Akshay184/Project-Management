@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 id="heading">The hub for all your team</h2>
+<h2 id="heading">communication & collaboration</h2>
+
+
+<div class="row">
+    <table>
+        <tr>
+            <td colspan="8"></td>
+            <img id="svg" src="~/StyleImages/projectmanagment.svg" width="50%" />
+
+        </tr>
+        <div >
+            <div id="middle">Stay in sync,<br />
+                no matter<br />
+                where you go.
+            
+            
+
+        </div> 
+
+        </div>
+
+
+    </table>
+  </div>
+
+
+
+
+
+
+
+@section scripts{
+
+    <style>
+        #heading {
+            color: rgb(88, 88, 88);
+            text-align: center;
+            font-size: 40px;
+        }
+
+        #svg {
+            float: right;
+        }
+        #center {
+            align-content: center;
+        }
+
+        #middle {
+            color: rgb(88, 88, 88);
+            
+            font-size: 30px;
+            /*margin-left: 100px;*/
+            padding-left: 10% ;
+            padding-top: 17% ;
+            text-align: justify;
+            letter-spacing: 2px;
+
+        }
+        #mid {
+            color: rgb(88, 88, 88);
+            font-size: 25px;
+            text-align:justify ;
+            padding-top: 15% ;
+            
+        }
+        #left {
+            float: left;
+            color: rgb(88, 88, 88);
+            font-size: 25px;
+        }
+        #right {
+            float: right;
+            text-align: right;
+            color: rgb(88, 88, 88);
+            font-size: 25px;
+        }
+    </style>
+
+}
+<button class="btn" id="center">
+@Html.ActionLink("Register", "Register",new {@class="btn"})
+</button>

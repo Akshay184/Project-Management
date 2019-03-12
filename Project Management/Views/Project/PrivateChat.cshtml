@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "PrivateChat";
+}
+
+<h2>PrivateChat</h2>
+
+@foreach (var project in ViewBag.PrivateChat)
+{
+
+    @Html.ActionLink((string)project.UserName, "PrivateChat", "Chat", new { ProjectId = project.UserId }, false);
+    <br />
+}

@@ -1,0 +1,116 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Message";
+}
+
+<h2>Message</h2>
+
+
+
+<input type="text" id="Room" />
+<input type="button" id="AddMember" value="Send" />
+<br />
+
+@foreach (var Message in ViewBag.ShowMessage)
+{
+    if ((Convert.ToInt16(User.Identity.GetUserName())) == (int)@Message.From_User)
+    {
+        <p class="right">
+            <span>@Message.TimeStrap  |</span>
+            <span>@Message.Message |</span>s
+            <span>@Message.UserName</span>
+        </p>
+    }
+    else
+    {
+        <p class="left">
+            <span>@Message.TimeStrap  |</span>
+            <span>@Message.Message |</span>
+            <span>@Message.UserName</span>
+
+        </p>
+    }
+
+
+}
+
+<div id="container">
+
+
+</div>
+
+
+
+@section scripts {
+
+    
+<script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script src="~/signalr/js"></script>
+
+    <script type="text/javascript">
+        var group = '@ViewBag.Room';
+        var id = '@ViewBag.id';
+        var userName = '@ViewBag.UserName';
+        var i = 0;
+        (function () {
+            $.connection.hub.start()
+                .done(function () {
+
+                    $.connection.chatHub.server.joinRoom(group);
+                    $.connection.hub.logging = true;
+                    console.log("It Worked");
+                    $("#AddMember").click(function () {
+                        $.connection.chatHub.server.sendMessage($("#Room").val(), group, id, userName)
+                        $("#Room").val(" ");
+                        console.log("It Worked");
+                    });
+
+                })
+                .fail(function () {
+                    alert("pramod ho gya");
+                });
+
+
+            $.connection.chatHub.client.privateMessagesendMessage = function (message, idd, username) {
+                if (id == idd) {
+
+                    var txt2 = $("<p ></p>").text(message + " | " + username).css({
+                        "text-align": "right",
+
+                    });
+                    $("#container").append(txt2);
+
+                } else {
+                    var txt2 = $("<p></p>").text(message + " | " + username).css("text-align", "left");
+                    $("#container").append(txt2);
+
+                }
+
+
+
+            }
+        })();
+
+
+
+
+    </script>
+    <style>
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+    </style>
+
+
+
+}
+
+
+
+
+

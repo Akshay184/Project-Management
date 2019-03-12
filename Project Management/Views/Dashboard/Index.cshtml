@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@Html.ActionLink("View Profile", "Profile", new { auth = (User.Identity.GetUserName()) })
+<br />
+@Html.ActionLink("Edit Profile", "Edit")
+<br />
+@Html.ActionLink("Logout", "Logout","Login")
+<br />
+@Html.ActionLink("Projects", "Index", "Project")
